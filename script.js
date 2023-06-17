@@ -13,8 +13,8 @@ const TicTacToe = (() => {
     const numberOfCols = 3;
     const markersToWin = 3;
 
-    const player = Player("x");
-    const computer = Player("o");
+    const player = Player("X");
+    const computer = Player("O");
     let currentPlayer = player;                 // player starts by default
     let infoBoard = document.getElementById("info-board");
 
@@ -70,6 +70,7 @@ const TicTacToe = (() => {
         }
 
         currentPlayer = null;
+        document.getElementById("play-again").classList.toggle("hidden");
     }
 
     const computerTurn = () => {
@@ -127,6 +128,7 @@ const TicTacToe = (() => {
 
         currentPlayer = player;                 // player starts always
         infoBoard.textContent = "Player's turn";
+        document.getElementById("play-again").classList.add("hidden");
     };
 
     const displayConsole = () => {

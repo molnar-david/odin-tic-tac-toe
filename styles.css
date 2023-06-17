@@ -1,27 +1,68 @@
+@font-face {
+    font-family: Jellee;
+    src: url("fonts/Jellee-Bold.woff2") format("woff2"), url("fonts/Jellee-Bold.woff") format("woff"), url("fonts/Jellee-Bold.otf") format("opentype");
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 body {
+    font-family: Jellee, sans-serif;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 24px;
+    background-color: lightgray;
+    color: rgb(53, 53, 53);
 }
 
 h1 {
-    font-size: 4rem;
+    padding: 24px;
+    font-size: 6rem;
+    background-color: cadetblue;
+    width: 100vw;
+    text-align: center;
+    border-bottom: 4px solid rgb(53, 53, 53);
 }
 
 #gameboard {
     display: grid;
     grid-template: repeat(3, 140px) / repeat(3, 140px);
+    border: 2px solid rgb(53, 53, 53);
 }
 
 #gameboard button {
-    font-size: 4rem;
+    font-size: 5rem;
+    border-radius: 0;
+    color: black;
+    border: 1px solid rgb(53, 53, 53);
 }
 
 #info-board {
-    font-size: 2rem;
+    font-size: 2.4rem;
 }
 
-#restart-btn {
-    font-size: 2rem;
+button {
+    font-family: Jellee, sans-serif;
+    font-size: 1.6rem;
+    padding: 8px;
+    border-radius: 8px;
+    color: rgb(53, 53, 53);
+}
+
+button:hover,
+button:focus-visible {
+    background-color: rgb(212, 220, 228);
+    border-color: black;
+}
+
+#play-again {
+    font-size: 1.2rem;
+}
+
+.hidden {
+    display: none;
 }
