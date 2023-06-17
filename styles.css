@@ -18,6 +18,10 @@ h1 {
     font-size: 4rem;
 }
 
+#info-board {
+    font-size: 2rem;
+}
+
 #restart-btn {
     font-size: 2rem;
 }

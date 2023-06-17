@@ -16,6 +16,7 @@ const TicTacToe = (() => {
     const player = Player("x");
     const computer = Player("o");
     let currentPlayer = player;                 // player starts by default
+    let infoBoard = document.getElementById("info-board");
 
     const isWinningMove = () => {
         // check rows
@@ -58,13 +59,13 @@ const TicTacToe = (() => {
     const gameOver = () => {
         switch (currentPlayer) {
             case null:
-                console.log("Tie");
+                infoBoard.textContent = "Tie!";
                 break;
             case player:
-                console.log("Player wins");
+                infoBoard.textContent = "Player wins! Congratulations!";
                 break;
             case computer:
-                console.log("Computer wins");
+                infoBoard.textContent = "Computer wins! Too bad...";
                 break;
         }
 
@@ -90,6 +91,7 @@ const TicTacToe = (() => {
             gameOver();
         } else {
             currentPlayer = player;
+            infoBoard.textContent = "Player's turn";
         }
     }
 
@@ -102,7 +104,8 @@ const TicTacToe = (() => {
                 gameOver();
             } else {
                 currentPlayer = computer;
-                computerTurn();
+                infoBoard.textContent = "Computer's turn";
+                setTimeout(computerTurn, 1000);
             }
         }
     }
@@ -120,8 +123,10 @@ const TicTacToe = (() => {
                 gameboardGrid.appendChild(btn);
             }
         }
+        infoBoard.textContent = "";
 
         currentPlayer = player;                 // player starts always
+        infoBoard.textContent = "Player's turn";
     };
 
     const displayConsole = () => {
@@ -133,7 +138,7 @@ const TicTacToe = (() => {
     }
 
     document.getElementById("restart-btn").addEventListener("click", init);
-    
+
     return {
         play,
     }
