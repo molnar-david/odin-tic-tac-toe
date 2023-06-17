@@ -1,4 +1,23 @@
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+}
+
+h1 {
+    font-size: 4rem;
+}
+
 #gameboard {
     display: grid;
-    grid-template: repeat(3, 100px) / repeat(3, 100px);
+    grid-template: repeat(3, 140px) / repeat(3, 140px);
+}
+
+#gameboard button {
+    font-size: 4rem;
+}
+
+#restart-btn {
+    font-size: 2rem;
 }
