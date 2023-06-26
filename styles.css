@@ -23,7 +23,7 @@ h1 {
     padding: 24px;
     font-size: 6rem;
     background-color: cadetblue;
-    width: 100vw;
+    width: 100%;
     text-align: center;
     border-bottom: 4px solid rgb(53, 53, 53);
 }

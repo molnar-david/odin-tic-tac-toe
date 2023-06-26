@@ -18,6 +18,10 @@ const TicTacToe = (() => {
     let currentPlayer = player;                 // player starts by default
     let infoBoard = document.getElementById("info-board");
 
+    const isDraw = () => {
+        return gameboard.every((row) => !row.includes(null));
+    }
+
     const isWinningMove = () => {
         // check rows
         let rowCount = 0;
@@ -47,13 +51,7 @@ const TicTacToe = (() => {
             gameboard[1][1] === currentPlayer.getMarker() &&
             gameboard[0][2] === currentPlayer.getMarker()) return true;
 
-        if (gameboard.some((row) => row.includes(null))) {
-            return false;
-        } else {
-            // draw condition - none of the cells contain null
-            currentPlayer = null;
-            return true;
-        }
+        return false;
     }
 
     const gameOver = () => {
@@ -73,6 +71,14 @@ const TicTacToe = (() => {
         document.getElementById("play-again").classList.toggle("hidden");
     }
 
+    const minimax = (nextPlayer) => {
+        if (isDraw()) {
+            return { score: 0 };
+        } else if (isWinningMove()) {
+            return nextPlayer === player ? { score: -10 } : { score: 10 };
+        }
+    }
+
     const computerTurn = () => {
         let legalMoves = [];
         for (let i = 0; i < numberOfRows; i++) {
@@ -86,9 +92,15 @@ const TicTacToe = (() => {
             let {row, col} = legalMoves[Math.floor(Math.random() * legalMoves.length)];
             gameboard[row][col] = computer.getMarker();
             document.querySelector(`button[data-row="${row}"][data-col="${col}"]`).textContent = computer.getMarker();
+
+            // computer chooses the best possible legal move
+            console.log(minimax(currentPlayer));
         }
 
         if (isWinningMove()) {
+            gameOver();
+        } else if (isDraw()) {
+            currentPlayer = null;
             gameOver();
         } else {
             currentPlayer = player;
@@ -102,6 +114,9 @@ const TicTacToe = (() => {
             gameboard[event.target.dataset.row][event.target.dataset.col] = player.getMarker();
 
             if (isWinningMove()) {
+                gameOver();
+            } else if (isDraw()) {
+                currentPlayer = null;
                 gameOver();
             } else {
                 currentPlayer = computer;
