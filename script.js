@@ -17,6 +17,7 @@ const TicTacToe = (() => {
     const computer = Player("O");
     let currentPlayer = player;                 // player starts by default
     let infoBoard = document.getElementById("info-board");
+    let timeoutId;                              // timer for computer's turn
 
     const isWinningMove = () => {
         // check rows
@@ -106,12 +107,13 @@ const TicTacToe = (() => {
             } else {
                 currentPlayer = computer;
                 infoBoard.textContent = "Computer's turn";
-                setTimeout(computerTurn, 1000);
+                timeoutId = setTimeout(computerTurn, 1000);
             }
         }
     }
 
     const init = () => {
+        clearTimeout(timeoutId);
         gameboard = new Array(numberOfRows).fill(null).map(() => new Array(numberOfCols).fill(null));
 
         gameboardGrid.textContent = "";
