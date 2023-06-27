@@ -178,6 +178,7 @@ const TicTacToe = (() => {
                 break;
         }
 
+        currentPlayer = computer;
         const {row, col, ...rest} = computerMove;
         gameboard[row][col] = computer.getMarker();
         document.querySelector(`button[data-row="${row}"][data-col="${col}"]`).textContent = computer.getMarker();
