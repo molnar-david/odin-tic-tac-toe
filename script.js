@@ -13,7 +13,7 @@ const TicTacToe = (() => {
     const numberOfCols = 3;
     const markersToWin = 3;
     const winningScore = 10;
-    let difficulty = 1;
+    let difficulty = 999;
 
     const player = Player("X");
     const computer = Player("O");
@@ -115,6 +115,7 @@ const TicTacToe = (() => {
             }
             currentPlayer = player;
         }
+
         return getRandomLegalMove();
     }
 
@@ -209,6 +210,10 @@ const TicTacToe = (() => {
         }
     }
 
+    const changeDifficulty = (event) => {
+        difficulty = +event.target.value;
+    }
+
     const init = () => {
         gameboard = new Array(numberOfRows).fill(null).map(() => new Array(numberOfCols).fill(null));
 
@@ -222,6 +227,7 @@ const TicTacToe = (() => {
                 gameboardGrid.appendChild(btn);
             }
         }
+        document.getElementById("difficulty").addEventListener("change", changeDifficulty);
         infoBoard.textContent = "";
 
         currentPlayer = player;                 // player starts always

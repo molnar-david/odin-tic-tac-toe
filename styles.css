@@ -45,6 +45,20 @@ h1 {
     font-size: 2.4rem;
 }
 
+#difficulty-container {
+    display: flex;
+    gap: 12px;
+}
+
+label {
+    font-size: 1.1rem;
+}
+
+select {
+    font-size: 1rem;
+    border-radius: 4px;
+}
+
 button {
     font-family: Jellee, sans-serif;
     font-size: 1.6rem;
