@@ -21,7 +21,7 @@ const TicTacToe = (() => {
     let infoBoard = document.getElementById("info-board");
     let timeoutId;                              // timer for computer's turn
 
-    const debugMode = 1;
+    const isDebugMode = 0;                      // AI steps are shown visually on the gameboardGrid for a better debugging experience
 
     const isDraw = () => {
         return gameboard.every((row) => !row.includes(null));
@@ -96,19 +96,19 @@ const TicTacToe = (() => {
                 for (let j = 0; j < numberOfCols; j++) {
                     if (gameboard[i][j] === null) {
                         gameboard[i][j] = currentPlayer.getMarker();
-                        if (debugMode) {
+                        if (isDebugMode) {
                             document.querySelector(`button[data-row="${i}"][data-col="${j}"]`).textContent = currentPlayer.getMarker();
                         }
                         if (isWinningMove()) {
                             // revert back to previous state
                             gameboard[i][j] = null;
-                            if (debugMode) {
+                            if (isDebugMode) {
                                 document.querySelector(`button[data-row="${i}"][data-col="${j}"]`).textContent = null;
                             }
                             return {row: i, col: j};
                         }
                         gameboard[i][j] = null;
-                        if (debugMode) {
+                        if (isDebugMode) {
                             document.querySelector(`button[data-row="${i}"][data-col="${j}"]`).textContent = null;
                         }
                     }
@@ -133,7 +133,7 @@ const TicTacToe = (() => {
                 if (gameboard[i][j] === null) {
                     gameboard[i][j] = nextPlayer.getMarker();
                     currentPlayer = nextPlayer;             // because our winning conditions are tied to currentPlayer
-                    if (debugMode) {
+                    if (isDebugMode) {
                         document.querySelector(`button[data-row="${i}"][data-col="${j}"]`).textContent = currentPlayer.getMarker();
                     }
                     const nextNextPlayer = nextPlayer === computer ? player : computer;
@@ -141,7 +141,7 @@ const TicTacToe = (() => {
 
                     // revert back to previous state
                     gameboard[i][j] = null;
-                    if (debugMode) {
+                    if (isDebugMode) {
                         document.querySelector(`button[data-row="${i}"][data-col="${j}"]`).textContent = null;
                     }
                 }
