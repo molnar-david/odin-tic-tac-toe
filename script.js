@@ -13,7 +13,7 @@ const TicTacToe = (() => {
     const numberOfCols = 3;
     const markersToWin = 3;
     const winningScore = 10;
-    let difficulty = 999;
+    let difficulty = 0;
 
     const player = Player("X");
     const computer = Player("O");
