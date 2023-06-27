@@ -13,11 +13,14 @@ const TicTacToe = (() => {
     const numberOfCols = 3;
     const markersToWin = 3;
     const winningScore = 10;
+    let difficulty = 1;
 
     const player = Player("X");
     const computer = Player("O");
     let currentPlayer = player;                 // player starts by default
     let infoBoard = document.getElementById("info-board");
+
+    const debugMode = 1;
 
     const isDraw = () => {
         return gameboard.every((row) => !row.includes(null));
@@ -72,6 +75,49 @@ const TicTacToe = (() => {
         document.getElementById("play-again").classList.toggle("hidden");
     }
 
+    const getRandomLegalMove = () => {
+        let legalMoves = [];
+        for (let i = 0; i < numberOfRows; i++) {
+            for (let j = 0; j < numberOfCols; j++) {
+                if (gameboard[i][j] === null) legalMoves.push({row: i, col: j});
+            }
+        }
+
+        if (legalMoves.length) {
+            return legalMoves[Math.floor(Math.random() * legalMoves.length)];
+        }
+    }
+
+    const getImmediateBestMove = () => {
+        currentPlayer = computer;
+        for (let playerCounter = 0; playerCounter < 2; playerCounter++) {
+            for (let i = 0; i < numberOfRows; i++) {
+                for (let j = 0; j < numberOfCols; j++) {
+                    if (gameboard[i][j] === null) {
+                        gameboard[i][j] = currentPlayer.getMarker();
+                        if (debugMode) {
+                            document.querySelector(`button[data-row="${i}"][data-col="${j}"]`).textContent = currentPlayer.getMarker();
+                        }
+                        if (isWinningMove()) {
+                            // revert back to previous state
+                            gameboard[i][j] = null;
+                            if (debugMode) {
+                                document.querySelector(`button[data-row="${i}"][data-col="${j}"]`).textContent = null;
+                            }
+                            return {row: i, col: j};
+                        }
+                        gameboard[i][j] = null;
+                        if (debugMode) {
+                            document.querySelector(`button[data-row="${i}"][data-col="${j}"]`).textContent = null;
+                        }
+                    }
+                }
+            }
+            currentPlayer = player;
+        }
+        return getRandomLegalMove();
+    }
+
     const minimax = (nextPlayer = currentPlayer) => {
         if (isWinningMove()) {
             return { score: currentPlayer === computer ? winningScore : -winningScore };
@@ -85,11 +131,17 @@ const TicTacToe = (() => {
                 if (gameboard[i][j] === null) {
                     gameboard[i][j] = nextPlayer.getMarker();
                     currentPlayer = nextPlayer;             // because our winning conditions are tied to currentPlayer
+                    if (debugMode) {
+                        document.querySelector(`button[data-row="${i}"][data-col="${j}"]`).textContent = currentPlayer.getMarker();
+                    }
                     const nextNextPlayer = nextPlayer === computer ? player : computer;
                     legalMoves.push({ row: i, col: j, score: minimax(nextNextPlayer).score });
 
                     // revert back to previous state
                     gameboard[i][j] = null;
+                    if (debugMode) {
+                        document.querySelector(`button[data-row="${i}"][data-col="${j}"]`).textContent = null;
+                    }
                 }
             }
         }
@@ -110,23 +162,21 @@ const TicTacToe = (() => {
     }
 
     const computerTurn = () => {
-        // // computer chooses a random legal move
-        // let legalMoves = [];
-        // for (let i = 0; i < numberOfRows; i++) {
-        //     for (let j = 0; j < numberOfCols; j++) {
-        //         if (gameboard[i][j] === null) legalMoves.push({row: i, col: j});
-        //     }
-        // }
+        let computerMove = {};
+        switch (difficulty) {
+            case 0:
+            default:
+                computerMove = getRandomLegalMove();
+                break;
+            case 1:
+                computerMove = getImmediateBestMove();
+                break;
+            case 2:
+                computerMove = minimax();
+                break;
+        }
 
-        // if (legalMoves.length) {
-        //     let {row, col} = legalMoves[Math.floor(Math.random() * legalMoves.length)];
-        //     gameboard[row][col] = computer.getMarker();
-        //     document.querySelector(`button[data-row="${row}"][data-col="${col}"]`).textContent = computer.getMarker();
-        // }
-
-        // computer chooses the best possible legal move
-        const {row, col, score} = minimax();
-        currentPlayer = computer;
+        const {row, col, ...rest} = computerMove;
         gameboard[row][col] = computer.getMarker();
         document.querySelector(`button[data-row="${row}"][data-col="${col}"]`).textContent = computer.getMarker();
 
