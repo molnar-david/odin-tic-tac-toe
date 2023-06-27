@@ -17,6 +17,7 @@ body {
     gap: 24px;
     background-color: lightgray;
     color: rgb(53, 53, 53);
+    padding-bottom: 12px;
 }
 
 h1 {
