@@ -23,7 +23,7 @@ h1 {
     padding: 24px;
     font-size: 6rem;
     background-color: cadetblue;
-    width: 100vw;
+    width: 100%;
     text-align: center;
     border-bottom: 4px solid rgb(53, 53, 53);
 }
@@ -42,7 +42,22 @@ h1 {
 }
 
 #info-board {
+    text-align: center;
     font-size: 2.4rem;
+}
+
+#difficulty-container {
+    display: flex;
+    gap: 12px;
+}
+
+label {
+    font-size: 1.1rem;
+}
+
+select {
+    font-size: 1rem;
+    border-radius: 4px;
 }
 
 button {
