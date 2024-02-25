@@ -1,5 +1,5 @@
 # odin-tic-tac-toe
-GitHub Pages: https://molnar-david.github.io/odin-tic-tac-toe\
+GitHub Pages: https://molnar-david.github.io/odin-tic-tac-toe/
 
 Tic Tac Toe browser game, with 3 AI difficulty settings:
 1. Easy makes random moves
